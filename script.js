@@ -9,14 +9,14 @@ const searchHistoryList = document.getElementById('search-history-list');
 
 async function getCurrentImageOfTheDay(){
     const currentDate = new Date().toISOString().split("T")[0];
-    const URL=`https://api.nasa.gov/planetary/apod?date=2023-09-29&api_key=${api_key}`
+    const URL=`https://api.nasa.gov/planetary/apod?date=${currentDate}&api_key=${api_key}`
     try{
         const response=await fetch(URL);
         const data = await response.json();
         console.log(data);
 
         imgContainer.innerHTML=`
-        <img src=${data.url}>
+        <img class="img" src=${data.url}>
         <h2>${data.title}</h2>
         <p>${data.explanation}</p>`
         
@@ -93,13 +93,6 @@ function addSearchToHistory(selectedDate) {
 
 
 
-
-
-
-
-
-
-
 searchBtn.addEventListener("click", async (e)=>{
     if(mydate.value==""){
         alert("Enter Date to be searched");
@@ -107,6 +100,5 @@ searchBtn.addEventListener("click", async (e)=>{
     console.log(mydate.value);
     const selectedDate=mydate.value;
     await getImageOfTheDay(selectedDate)
-    // let date = mydate.value;
-    // let newdate = date.split("-").reverse().join("-");
 })
+
